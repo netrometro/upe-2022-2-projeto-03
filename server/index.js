@@ -6,6 +6,27 @@ const port = 3000;
 var path = require('path');
 const app = express();
 
+app.use(express.json());
+
+const cadastros = [];
+
+// cadastro de usuario temporario - sem BD
+
+app.post('/cadastros',(req, res) =>
+{
+  const {user} = req.body;
+  const {password} = req.body;
+  const {email} = req.body;
+  const {nickname} = req.body;
+  cadastros.push(user,password,email,nickname);
+
+  return res.json(cadastros);
+
+})
+
+
+
+
 var login = "admin";
 var password = "123456"
 
@@ -35,6 +56,10 @@ app.get('/', (req, res)=>{
     res.render('index');
   }
 })
+
+
+
+
 
 app.listen(port, ()=>{
   console.log('servidor rodando');
