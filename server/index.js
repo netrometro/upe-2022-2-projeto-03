@@ -1,6 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser')
+const crypto = require('crypto');
+const mailer = require('mail')
 
 const port = 3000;
 var path = require('path');
@@ -25,6 +27,78 @@ app.post('/cadastros',(req, res) =>
 })
 
 
+// esquecer senha basico
+
+app.post('/esqueceu-senha',(req, res) => {
+  const {email} = req.body;
+
+  try {
+  const user = await user.findOne({ email});
+
+   if (!user)
+     res.status(400).send( { error: 'Erro, tente novamente'});
+
+   const token = crypto.randomBytes(15).toString('hex');
+    
+   const now = new Date();
+   now.setHours(now.getHours() + 1);
+
+   await user.findByidAndUpdate(user.id, {
+    $set: {
+      passwordResetToken: token,
+      passwaordResetExpires: now,
+    }
+   });
+
+ } catch (err) {
+    res.status(400).send( { error: 'Erro, tente novamente'});
+  }
+
+});
+
+
+//Enviar email estrutura basica (Falta configurar)
+
+mailer.sendMail({
+  to: email,
+  from: '************',
+  template: '*****',
+  context:  {token },
+ }), (err) => {
+  if (err)
+   return res.status(400).send( { error: 'Erro, tente novamente'});
+   return res.send():
+}
+
+//resetar senha basico
+
+app.post('/esqueceu-senha',(req, res) => {
+  const { email, token, password} = req.body;
+
+ try {
+  const user = await user.findOne({ email})
+   .select('+passwordResetToken passwordResetExpires');
+
+  if (!user)
+   res.status(400).send( { error: 'Erro, tente novamente'});
+
+  if (token !== user.passwordResetToken)
+   return res.status(400).send( { error: 'Erro, tente novamente'});
+
+  const now = new Date();
+
+  if(now > user.passwaordResetExpires) 
+  return res.status(400).send( { error: 'Erro, tente novamente'});
+
+
+  user.password = password;
+
+  res.send();
+
+ } catch (err) {
+    res.status(400).send( { error: 'Erro, tente novamente'});
+  }
+})
 
 
 var login = "admin";
