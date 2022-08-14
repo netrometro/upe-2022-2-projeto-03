@@ -67,7 +67,7 @@ mailer.sendMail({
  }), (err) => {
   if (err)
    return res.status(400).send( { error: 'Erro, tente novamente'});
-   return res.send():
+   return res.send();
 }
 
 //resetar senha basico
@@ -99,6 +99,22 @@ app.post('/esqueceu-senha',(req, res) => {
     res.status(400).send( { error: 'Erro, tente novamente'});
   }
 })
+
+//Api de search ***TROCAR VALORES QUANDO O BANCO DE DADOS ESTIER PRONTO***
+
+
+app.get("/search/:key",async (req,resp)=>{
+  let data = await Quiz.find(
+      {
+          "$or":[
+              {Nome:{$regex:req.params.key}},
+              {ID:{$regex:req.params.key}}
+          ]
+      }
+      )
+      resp.send(data);
+  })
+
 
 
 var login = "admin";
