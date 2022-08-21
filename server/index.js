@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extends:false}))
 require('./src/controllers/authController')(app);
-require('./src/controllers/projectController')(app); 
+require('./src/controllers/projectController')(app);
 
 
 
