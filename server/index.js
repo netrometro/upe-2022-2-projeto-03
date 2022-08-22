@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extends:false}))
 require('./src/controllers/authController')(app);
-require('./src/controllers/projectController')(app);
+require('./src/controllers/projectController')(app); 
 
 
 
@@ -97,20 +97,44 @@ require('./src/controllers/projectController')(app);
 //   }
 // })
 
-//Api de search ***TROCAR VALORES QUANDO O BANCO DE DADOS ESTIER PRONTO***
 
 
+
+//Api de search ***Procurar coisas relacionadas ao usuario***
 app.get("/search/:key",async (req,resp)=>{
-  let data = await Quiz.find(
+  let data = await User.find(
       {
           "$or":[
-              {Nome:{$regex:req.params.key}},
-              {ID:{$regex:req.params.key}}
-          ]
-      }
+              {Name:{$regex:req.params.key}}, // copiar esta linha para outros parametros no lugar de Name
+            
+            ]
+       }
       )
       resp.send(data);
   })
+
+
+
+  app.delete("/user/:id") , (req, res) => {
+      const  usurario = user.deleteOne({_id: req.params.id } , (err) => {
+         if(err) return res.status(400).json({
+          error: true,
+          message: "Erro ao deletar"
+         });
+
+         return res.json({
+          error: false,
+          message: "Deletado"
+      });
+          
+      })
+
+
+  }
+
+
+
+
 
 
 
