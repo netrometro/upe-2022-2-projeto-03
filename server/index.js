@@ -21,7 +21,7 @@ app.get("/search/:key",async (req,resp)=>{
       {
           "$or":[
               {Name:{$regex:req.params.key}}, // copiar esta linha para outros parametros no lugar de Name
-            
+              {_id:{$regex:req.params.key}},
             ]
        }
       )
@@ -32,13 +32,14 @@ app.get("/search/:key",async (req,resp)=>{
     let data = await Quiz.find(
         {
             "$or":[
-                {ID:{$regex:req.params.key}}, // copiar esta linha para outros parametros no lugar de Name
-              
+                {_id:{$regex:req.params.key}}, // copiar esta linha para outros parametros no lugar de Name
+                {questions:{$regex:req.params.key}},
               ]
          }
         )
         resp.send(data);
     })
+
 
   app.delete("/user/:id") , (req, res) => {
       const  usurario = user.deleteOne({_id: req.params.id } , (err) => {
