@@ -1,36 +1,31 @@
 const { Router } = require('express');
 const express = require('express');
 const router = express.Router();
+const Quizz = require('../models/quizz');
+const User = require('../models/user');
 
+router.delete("/user/:id", async (req, res) => {
+    const id = req.params.id
 
-app.delete("/user/:id") , (req, res) => {
-    const  usurario = user.deleteOne({_id: req.params.id } , (err) => {
-       if(err) return res.status(400).json({
-        error: true,
-        message: "Erro ao deletar"
-       });
+    await User.deleteOne({ _id: id })   
+        .then(msg => {
+            return res.status(204).json({mensagem: "Usuário excluido com sucesso!"}) 
+        })
+        .catch(err => {
+            return res.status(400).json({mensagem: "Erro ao excluir usuário."})
+        })
+})
 
-       return res.json({
-        error: false,
-        message: "Deletado"
-    });
-        
-    })
-  
-}
-    app.delete("/Quizz/:id") , (req, res) => {
-      const  Quiz = quizz.deleteOne({_id: req.params.id } , (err) => {
-         if(err) return res.status(400).json({
-          error: true,
-          message: "Erro ao deletar"
-         });
+router.delete("/quizz/:id", async (req, res) => {
+    const id = req.params.id
+    
+    await Quizz.deleteOne({ _id: id })   
+        .then(msg => {
+            return res.status(204).json({mensagem: "Quizz excluido com sucesso!"}) 
+        })
+        .catch(err => {
+            return res.status(400).json({mensagem: "Erro ao excluir quizz."})
+        })
+})
 
-         return res.json({
-          error: false,
-          message: "Deletado"
-      });
-          
-      })
-
-}
-
+module.exports = app => app.use('/',router);
