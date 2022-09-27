@@ -6,12 +6,12 @@ const crypto = require('crypto');
 const mailer = require('../modules/mailer');
 
 const User = require('../models/user')
-const authConfig = require('../config/auth.json');
 const { Template } = require('ejs');
+require("dotenv").config({path:"./.env"})
 
 
 function generateToken(params={}){
-    return jwt.sign(params, authConfig.secret,{
+    return jwt.sign(params,process.env.secret,{
         expiresIn:86400
     })
 }
