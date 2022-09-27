@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const authConfig = require('../config/auth.json')
+require("dotenv").config({path:"./.env"})
 
 module.exports = (req, res, next) =>{
     const authHeader = req.headers.authorization;
@@ -17,7 +17,7 @@ module.exports = (req, res, next) =>{
     if(!/^Bearer$/i.test(scheme))
         return res.status(401).send({error:'Token mal formatado'})
     
-    jwt.verify(token,authConfig.secret,(err, decoded)=>{
+    jwt.verify(token,process.env.secret,(err, decoded)=>{
         if(err) return res.status(401).send({error:'Token invalido'})
     req.userId = decoded.id;
     return next();

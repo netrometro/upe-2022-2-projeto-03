@@ -1,7 +1,6 @@
-const { default: mongoose } = require('mongoose');
-const moongose = require('../database');
+const mongoose = require('mongoose');
 
-const QuizzSchema = new moongose.Schema({
+const QuizzSchema = new mongoose.Schema({
   questions:[
     {
       questionDescription: "",
