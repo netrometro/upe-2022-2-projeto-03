@@ -12,6 +12,8 @@ require("dotenv").config({path:"./.env"})
 require('./src/controllers/authController')(app);
 require('./src/controllers/quizzController')(app);
 require('./src/controllers/projectController')(app);
+require('./src/controllers/searchController')(app);
+require('./src/controllers/deleteController')(app);
 
 
 
