@@ -1,9 +1,16 @@
 import React from 'react';
-import {} from 'react-native/Libraries/NewAppScreen';
-import { Router } from './src/routes/Router';
+import {AuthProvider} from './src/contexts/auth';
+import {Router} from './src/routes/Routes';
+import {ThemeProvider} from './src/theme/Theme';
 
 const App = () => {
-  return <Router />;
-}
+  return (
+    <ThemeProvider>
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
+    </ThemeProvider>
+  );
+};
 
 export default App;
