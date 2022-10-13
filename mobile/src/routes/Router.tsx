@@ -1,25 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-const Stack = createNativeStackNavigator();
-
-function Login() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Login Screen</Text>
-    </View>
-  );
-}
+import { AppStack } from './AppStack';
+import { AuthStack } from './AuthStack';
 
 export function Router(){
-
+  const auth = false;
   return(
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Login} />
-      </Stack.Navigator>
+      {auth ? <AppStack /> : <AuthStack/>}
     </NavigationContainer>
   )
 }

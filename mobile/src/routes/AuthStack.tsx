@@ -1,14 +1,13 @@
 import React from "react";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home } from "../screens/Home";
-
+import { SingInScreen } from "../screens/SingInScreen/SingInScreen";
 
 const Stack = createNativeStackNavigator();
 
-export function AppStack() {
+export function AuthStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="SingIn" component={SingInScreen} />
     </Stack.Navigator>
   );
 }
