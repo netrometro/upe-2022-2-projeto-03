@@ -21,3 +21,7 @@ require('./src/controllers/deleteController')(app);
 app.listen(port, ()=>{
   console.log('servidor rodando');
 })
+
+// ADD THIS TWO LINE
+var cors = require('cors');
+app.use(cors());
