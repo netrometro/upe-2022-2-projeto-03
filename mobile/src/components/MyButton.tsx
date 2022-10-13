@@ -16,7 +16,7 @@ export function MyButton({title, style, ...rest}: MyButtonProps) {
 const styles = StyleSheet.create({
   text: {
     fontWeight: 'bold',
-    color: '#FFF',
+    color: 'rgb(34, 91, 136)',
     fontSize: 16,
   },
 });

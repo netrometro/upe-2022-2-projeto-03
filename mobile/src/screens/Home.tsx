@@ -1,10 +1,21 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {View, Text} from 'react-native';
 
-export function Home(){
+import {useNavigation} from '@react-navigation/native';
+import {MyButton} from '../components/MyButton';
+import {style} from './style';
+
+export function HomeScreen() {
+  const navigation = useNavigation();
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
+    <View style={style.container}>
+      <Text style={style.title}>
+        Essa tela só pode ser vista por usuários autenticados
+      </Text>
+      <MyButton
+        title="Ir para Configurações"
+        onPress={() => navigation.navigate('Settings')}
+      />
     </View>
   );
 }
