@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {authService} from '../services/authService';
 import {Alert} from 'react-native';
 import { user } from '../interfaces/user'
-import { api } from '../api';
+// import { api } from '../api';
 // export interface user { //Aqui estou simulando os dados que virão da API
 //   token: string;
 //   email: string;
@@ -42,12 +42,7 @@ export const AuthProvider: React.FC = ({children}) => { //Vai prover os dados do
     }
   }
 
-  async function signIn(email: string, password: string) {//Preciso chamar a minha API aqui
-
-    // const response = await authService(email, password)
-
-    // const 
-
+  async function signIn(email: string, password: string) { //Preciso chamar a minha API aqui
     try {
       const user = await authService.signIn(email, password);
 

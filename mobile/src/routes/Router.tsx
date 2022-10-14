@@ -7,7 +7,7 @@ import {AuthStack} from './AuthStack';
 import {useAuth} from '../contexts/Auth';
 
 export function Router() {
-  const {authData, isLoading} = useAuth();
+  const {user, isLoading} = useAuth();
 
   if (isLoading) {
     console.log({isLoading});
@@ -19,7 +19,7 @@ export function Router() {
   }
   return (
     <NavigationContainer>
-      {authData ? <AppStack /> : <AuthStack />}
+      {user ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 }
