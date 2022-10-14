@@ -2,15 +2,14 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {authService} from '../services/authService';
 import {Alert} from 'react-native';
-import {api} from '../api'
-// export interface user { //Aqui estou simulando os dados que virão da API
-//   token: string;
-//   email: string;
-//   name: string;
-// }
-
+export interface AuthData { //Aqui estou simulando os dados que virão da API
+  token: string;
+  email: string;
+  name: string;
+}
 
 interface AuthContextData {
+  authData?: AuthData;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   isLoading: boolean;
@@ -19,10 +18,8 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({children}) => { //Vai prover os dados do contexto de autenticação de forma global para a aplicação
-  const [user, setuser] = useState(null);
+  const [authData, setAuthData] = useState<AuthData>();
   const [isLoading, setisLoading] = useState(true);
-  // const [userData, setUserData] = useState({email:'', password:''}) //Login
-  // const req = api.get('auth/authenticate', userData)
 
   useEffect(() => {
     loadStorageData();
@@ -31,11 +28,11 @@ export const AuthProvider: React.FC = ({children}) => { //Vai prover os dados do
   async function loadStorageData(): Promise<void> {
     try {
       //Try get the data from Async Storage
-      const userSerialized = await AsyncStorage.getItem('@user');
-      if (userSerialized) {
+      const authDataSerialized = await AsyncStorage.getItem('@AuthData');
+      if (authDataSerialized) {
         //If there are data, it's converted to an Object and the state is updated.
-        const _user: user = JSON.parse(userSerialized);
-        setuser(_user);
+        const _authData: AuthData = JSON.parse(authDataSerialized);
+        setAuthData(_authData);
       }
     } catch (error) {
     } finally {
@@ -43,26 +40,23 @@ export const AuthProvider: React.FC = ({children}) => { //Vai prover os dados do
     }
   }
 
-  const signIn = (email, password) => {
-    setuser({id:"123", email})
-  }
-  // async function signIn(email: string, password: string) { //Preciso chamar a minha API aqui
-  //   try {
-  //     const user = await authService.signIn(email, password);
+  async function signIn(email: string, password: string) { //Preciso chamar a minha API aqui
+    try {
+      const authData = await authService.signIn(email, password);
 
-  //     setuser(user);
-  //     AsyncStorage.setItem('@user', JSON.stringify(user));
-  //   } catch (error) {
-  //     Alert.alert(error.message, 'Tente novamente');
-  //   }
-  // }
+      setAuthData(authData);
+      AsyncStorage.setItem('@AuthData', JSON.stringify(authData));
+    } catch (error) {
+      Alert.alert(error.message, 'Tente novamente');
+    }
+  }
   async function signOut() { //Faz logout do aplicativo
-    setuser(undefined);
-    AsyncStorage.removeItem('@user');
+    setAuthData(undefined);
+    AsyncStorage.removeItem('@AuthData');
   }
 
   return (
-    <AuthContext.Provider value={{user, signIn, signOut, isLoading}}>
+    <AuthContext.Provider value={{authData, signIn, signOut, isLoading}}>
       {children}
     </AuthContext.Provider>
   );
