@@ -2,11 +2,13 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {authService} from '../services/authService';
 import {Alert} from 'react-native';
+import {api} from '../api'
 export interface AuthData { //Aqui estou simulando os dados que virão da API
   token: string;
   email: string;
   name: string;
 }
+
 
 interface AuthContextData {
   authData?: AuthData;
@@ -20,6 +22,8 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export const AuthProvider: React.FC = ({children}) => { //Vai prover os dados do contexto de autenticação de forma global para a aplicação
   const [authData, setAuthData] = useState<AuthData>();
   const [isLoading, setisLoading] = useState(true);
+  // const [userData, setUserData] = useState({email:'', password:''}) //Login
+  // const req = api.get('auth/authenticate', userData)
 
   useEffect(() => {
     loadStorageData();
