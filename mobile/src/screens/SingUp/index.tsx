@@ -21,30 +21,29 @@ function SingUp() {
         name: name,
         email: email,
         password: password
-        
-    },).catch(function (error: { response: { data: { error: any; }; }; request: any; message: any; }) {
+    },
+    ).then((response) =>{
+      Alert.alert('Sucesso',(response.data.sucess))
+
+    })
+    .catch(function (error: { response: { data: { error: any; }; }; request: any; message: any; }) {
       if (error.response) {
-        Alert.alert('Error', JSON.stringify(error.response.data.error))
-        // Request made and server responded
+        Alert.alert('Error',(error.response.data.error))
         console.log(error.response.data);
       } else if (error.request) {
-        // The request was made but no response was received
         console.log(error.request);
       } else {
-        // Something happened in setting up the request that triggered an Error
         console.log('Error', error.message);
       }
-  
     },
     );
-    }else{
+  }else{
       Alert.alert('Opa, esqueceu algo?',"Preencha todos os campos")
     }
     
   }else{
     Alert.alert("Opa, calma lá", "As senhas não coincidem")
-  }
-  
+  } 
   }
   
 
