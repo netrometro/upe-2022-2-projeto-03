@@ -7,7 +7,7 @@
 // export function AuthStack() {
 //   return (
 //     <Stack.Navigator>
-//       <Stack.Screen name="SingIn" component={SingInScreen} />
+//       <Stack.Screen name="SingIn" component={SingInScreen}/>
 //     </Stack.Navigator>
 //   );
 // }
