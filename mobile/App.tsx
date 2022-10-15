@@ -1,7 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import SingUp from './src/screens/SingUp';
-export default function App() {
+import React from 'react';
+import {AuthProvider} from './src/contexts/Auth';
+import {Router} from './src/routes/Router';
+
+const App = () => {
   return (
-    <SingUp/>
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
   );
-}
+};
+
+export default App;
