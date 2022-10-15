@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import Cadastro from './src/Pages/Cadastro';
+import SingUp from './src/screens/SingUp';
 export default function App() {
   return (
-    <Cadastro/>
+    <SingUp/>
   );
 }
