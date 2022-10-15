@@ -1,16 +1,18 @@
-import { Input, Button } from "@rneui/base";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { useState } from "react";
-import { styles } from "./styles";
-import { View, Text, Alert } from "react-native";
+import { Container } from './style';
+import React, {useState } from "react";
+import {Alert, Button, Image, Text, TouchableOpacity, View } from "react-native";
 import api from "../../Services/api";
+import user from '../../assets/user.png';
+import { MyTextInput } from "../../components/MyTextInput";
+import { MyButton } from "../../components/MyButton";
+import { useNavigation } from '@react-navigation/native';
+// import SingInScreen from '../SingInScreen';
 
 function SingUp() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [password2, setPassword2] = useState<string>("");
-
 
   function handleSignUpClick() {
   if(password === password2){
@@ -20,7 +22,7 @@ function SingUp() {
         email: email,
         password: password
         
-    },).catch(function (error) {
+    },).catch(function (error: { response: { data: { error: any; }; }; request: any; message: any; }) {
       if (error.response) {
         Alert.alert('Error', JSON.stringify(error.response.data.error))
         // Request made and server responded
@@ -33,8 +35,8 @@ function SingUp() {
         console.log('Error', error.message);
       }
   
-    });
-      
+    },
+    );
     }else{
       Alert.alert('Opa, esqueceu algo?',"Preencha todos os campos")
     }
@@ -42,46 +44,54 @@ function SingUp() {
   }else{
     Alert.alert("Opa, calma lá", "As senhas não coincidem")
   }
-    
-  }
-
   
+  }
+  
+
   return (
-    <View style={styles.container}>
-      <View style={styles.containerForm}>
-      <Text style={styles.text}>Formulário de cadastro</Text>
-      <Input
-          placeholder="Nome"
-          leftIcon={{ type: "font-awesome", name: "user" }}
-          onChangeText={(value) => setName(value)}
-        />
-        <Input
-          placeholder="E-mail"
-          leftIcon={{ type: "font-awesome", name: "envelope" }}
-          onChangeText={(value) => setEmail(value)}
-          keyboardType="email-address"
-        />
+    <Container>
+      <Image
+      resizeMode="contain"
+      source={user}
+      style={{width: 100, height: 100}}
+      />
 
-        <Input
-          placeholder="Sua senha"
-          leftIcon={{ type: "font-awesome", name: "lock" }}
-          onChangeText={(value) => setPassword(value)}
-          secureTextEntry={true}
-        />
+      <MyTextInput
+        placeholder="Nome"
+        value={name}
+        onChangeText={setName}
+      />
+       <MyTextInput
+        placeholder="E-mail"
+        value={email}
+        onChangeText={setEmail}
+      />
 
-        <Input
-          placeholder="Repita sua senha"
-          leftIcon={{ type: "font-awesome", name: "lock" }}
-          onChangeText={(value) => setPassword2(value)}
-          secureTextEntry={true}
-        />
-        <Button
-          icon={<Icon name="check" size={15} color="white" />}
-          title="Cadastrar"
-          onPress={() => handleSignUpClick()}
-        />
+      <MyTextInput
+        placeholder="Sua senha"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+
+      <MyTextInput
+        placeholder="Repita sua senha"
+        secureTextEntry
+        value={password2}
+        onChangeText={setPassword2}
+      />
+      <View style={{flexDirection: "row",justifyContent:'center'}}>
+      <Text style={{fontSize: 14, fontWeight:'bold'}}>Já tem conta?</Text>
+      <TouchableOpacity>
+        <Text style={{fontSize:14, color:'#F94E69', fontWeight:'bold'}}>  É só logar!</Text>
+      </TouchableOpacity>
       </View>
-    </View>
+      
+
+      <MyButton onPress={() => handleSignUpClick()} title="Cadastrar-se" />
+
+    </Container>
+
   );
 }
 

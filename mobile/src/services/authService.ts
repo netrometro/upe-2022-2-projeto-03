@@ -1,6 +1,6 @@
-// import {AuthData} from '../contexts/Auth';
-import { api } from '../api';
-import { user } from '../interfaces/user';
+// // import {AuthData} from '../contexts/Auth';
+// import { api } from '../api';
+// import { user } from '../interfaces/user';
 
 // const signIn = () => api.post<user>('auth/authenticate')
 

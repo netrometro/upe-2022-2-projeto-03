@@ -1,12 +1,14 @@
 import React from 'react';
-import {AuthProvider} from './src/contexts/Auth';
-import {Router} from './src/routes/Router';
+import SingUp from './src/screens/SingUp';
+// import {AuthProvider} from './src/contexts/Auth';
+// import {Router} from './src/routes/Router';
 
 const App = () => {
   return (
-      <AuthProvider>
-        <Router />
-      </AuthProvider>
+    <SingUp/>
+      // <AuthProvider>
+      //   <Router />
+      // </AuthProvider>
   );
 };
 
