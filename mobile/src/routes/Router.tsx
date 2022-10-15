@@ -1,25 +1,25 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+// import React from 'react';
+// import {View, Text} from 'react-native';
+// import {NavigationContainer} from '@react-navigation/native';
 
-import {AppStack} from './AppStack';
-import {AuthStack} from './AuthStack';
-import {useAuth} from '../contexts/Auth';
+// import {AppStack} from './AppStack';
+// import {AuthStack} from './AuthStack';
+// import {useAuth} from '../contexts/Auth';
 
-export function Router() {
-  const {user, isLoading} = useAuth();
+// export function Router() {
+//   const {user, isLoading} = useAuth();
 
-  if (isLoading) {
-    console.log({isLoading});
-    return (
-      <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-        <Text>Carregando informações....</Text>
-      </View>
-    );
-  }
-  return (
-    <NavigationContainer>
-      {user ? <AppStack /> : <AuthStack />}
-    </NavigationContainer>
-  );
-}
+//   if (isLoading) {
+//     console.log({isLoading});
+//     return (
+//       <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+//         <Text>Carregando informações....</Text>
+//       </View>
+//     );
+//   }
+//   return (
+//     <NavigationContainer>
+//       {user ? <AppStack /> : <AuthStack />}
+//     </NavigationContainer>
+//   );
+// }
