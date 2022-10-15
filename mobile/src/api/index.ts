@@ -1,12 +1,5 @@
 import axios from "axios";
-import { parseCookies } from "nookies";
 
-const { "upe-token": token } = parseCookies();
-
-const api = axios.create({ baseURL: 'https://localhost:3000/' });
-
-if (token) {
-    api.defaults.headers['Authorization'] = Bearer ${token};
-}
+const api = axios.create({ baseURL: 'https://10.0.0.108:3000/' });
 
 export { api };
