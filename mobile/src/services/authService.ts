@@ -1,9 +1,11 @@
 // import {AuthData} from '../contexts/Auth';
-
+import { user } from '../interfaces/user';
 import { api } from "../api";
 
-export const authService =async (email: String, password: String) => {
-  return api.post('auth/authenticate', { email, password })
+const signIn = () => api.post<user>('auth/authenticate')
+
+export const authService = {
+  signIn,
 }
 
 // // Apenas um serviço para retornar as credenciais que preciso para poder atender meus serviços

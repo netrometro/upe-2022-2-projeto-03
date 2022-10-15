@@ -2,14 +2,15 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {authService} from '../services/authService';
 import {Alert} from 'react-native';
-export interface AuthData { //Aqui estou simulando os dados que virão da API
-  token: string;
-  email: string;
-  name: string;
-}
+import { user } from '../interfaces/user';
+// export interface AuthData { //Aqui estou simulando os dados que virão da API
+//   token: string;
+//   email: string;
+//   name: string;
+// }
 
 interface AuthContextData {
-  authData?: AuthData;
+  user?: user;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   isLoading: boolean;
@@ -18,7 +19,7 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({children}) => { //Vai prover os dados do contexto de autenticação de forma global para a aplicação
-  const [authData, setAuthData] = useState<AuthData>();
+  const [user, setUser] = useState<user>();
   const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
@@ -28,11 +29,11 @@ export const AuthProvider: React.FC = ({children}) => { //Vai prover os dados do
   async function loadStorageData(): Promise<void> {
     try {
       //Try get the data from Async Storage
-      const authDataSerialized = await AsyncStorage.getItem('@AuthData');
-      if (authDataSerialized) {
+      const userSerialized = await AsyncStorage.getItem('@user');
+      if (userSerialized) {
         //If there are data, it's converted to an Object and the state is updated.
-        const _authData: AuthData = JSON.parse(authDataSerialized);
-        setAuthData(_authData);
+        const _user: user = JSON.parse(userSerialized);
+        setUser(_user);
       }
     } catch (error) {
     } finally {
@@ -40,23 +41,36 @@ export const AuthProvider: React.FC = ({children}) => { //Vai prover os dados do
     }
   }
 
+  // const signIn = (email, password) => {
+  //   const loggedUser = {
+  //     id:"123",
+  //     email,
+  //   };
+
+  //   localStorage.setItem("user", JSON.stringify(loggedUser));
+  //   if(password === "secret") {
+  //     setUser({loggedUser});
+  //   }
+  // };
+
   async function signIn(email: string, password: string) { //Preciso chamar a minha API aqui
     try {
-      const authData = await authService.signIn(email, password);
+      const user = await authService.signIn(email, password);
 
-      setAuthData(authData);
-      AsyncStorage.setItem('@AuthData', JSON.stringify(authData));
+      setUser(user);
+      AsyncStorage.setItem('@user', JSON.stringify(user));
     } catch (error) {
       Alert.alert(error.message, 'Tente novamente');
     }
   }
+
   async function signOut() { //Faz logout do aplicativo
-    setAuthData(undefined);
-    AsyncStorage.removeItem('@AuthData');
+    setUser(undefined);
+    AsyncStorage.removeItem('@user');
   }
 
   return (
-    <AuthContext.Provider value={{authData, signIn, signOut, isLoading}}>
+    <AuthContext.Provider value={{user, signIn, signOut, isLoading}}>
       {children}
     </AuthContext.Provider>
   );
