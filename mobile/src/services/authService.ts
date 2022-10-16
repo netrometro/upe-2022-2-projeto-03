@@ -8,7 +8,7 @@ export const authService = {
   signIn,
 }
 
-// // Apenas um serviço para retornar as credenciais que preciso para poder atender meus serviços
+// Apenas um serviço para retornar as credenciais que preciso para poder atender meus serviços
 
 // const signIn = (email: string, password: string): Promise<AuthData> => {
 //   return new Promise((resolve, reject) => { // Simulando uma chamada da API
