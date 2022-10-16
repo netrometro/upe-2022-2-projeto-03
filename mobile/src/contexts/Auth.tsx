@@ -16,15 +16,15 @@ interface AuthContextData {
   isLoading: boolean;
 }
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+// const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({children}) => { //Vai prover os dados do contexto de autenticação de forma global para a aplicação
   const [user, setUser] = useState<user>();
   const [isLoading, setisLoading] = useState(true);
 
-  useEffect(() => {
-    loadStorageData();
-  }, []);
+//   useEffect(() => {
+//     loadStorageData();
+//   }, []);
 
   async function loadStorageData(): Promise<void> {
     try {
@@ -76,12 +76,33 @@ export const AuthProvider: React.FC = ({children}) => { //Vai prover os dados do
   );
 };
 
-export function useAuth(): AuthContextData {
-  const context = useContext(AuthContext);
+//     try {
+//       const user = await authService.signIn(email, password);
 
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+//       setUser(user);
+//       AsyncStorage.setItem('@user', JSON.stringify(user));
+//     } catch (error) {
+//       Alert.alert(error.message, 'Tente novamente');
+//     }
+//   }
+//   async function signOut() { //Faz logout do aplicativo
+//     setUser(undefined);
+//     AsyncStorage.removeItem('@user');
+//   }
 
-  return context;
-}
+//   return (
+//     <AuthContext.Provider value={{user, signIn, signOut, isLoading}}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// export function useAuth(): AuthContextData {
+//   const context = useContext(AuthContext);
+
+//   if (!context) {
+//     throw new Error('useAuth must be used within an AuthProvider');
+//   }
+
+//   return context;
+// }
