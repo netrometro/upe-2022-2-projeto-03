@@ -1,12 +1,25 @@
 // import {AuthData} from '../contexts/Auth';
-import { user } from '../interfaces/user';
-import { api } from "../api";
+import { user } from "../interfaces/user";
+import { Alert } from "react-native";
+import api from "./api";
+// import { useNavigation } from '@react-navigation/native';
 
-const signIn = () => api.post<user>('auth/authenticate')
+const signIn = async (
+  email: string,
+  password: string,
+) => {
+  const response = await api.post<user>("auth/authenticate", {
+    email: email,
+    password: password,
+  });
+  console.log("Response do api.post", response)
+  console.log("Response.data do api.post", response.data)
+  return response.data
+};
 
 export const authService = {
   signIn,
-}
+};
 
 // Apenas um serviço para retornar as credenciais que preciso para poder atender meus serviços
 
