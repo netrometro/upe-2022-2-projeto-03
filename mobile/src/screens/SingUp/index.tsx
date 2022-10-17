@@ -1,12 +1,12 @@
 import { Container } from './style';
 import React, {useState } from "react";
 import {Alert, Image, Text, TouchableOpacity, View } from "react-native";
-import { api } from '../../api';
 import user from '../../assets/user.png';
 import { MyTextInput } from "../../components/MyTextInput";
 import { MyButton } from "../../components/MyButton";
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '@rneui/base';
+import api from '../../services/api';
 // import SingInScreen from '../SingInScreen';
 
 function SingUp() {
