@@ -1,11 +1,12 @@
 import { Container } from './style';
 import React, {useState } from "react";
-import {Alert, Button, Image, Text, TouchableOpacity, View } from "react-native";
-import api from "../../Services/api";
+import {Alert, Image, Text, TouchableOpacity, View } from "react-native";
+import { api } from '../../api';
 import user from '../../assets/user.png';
 import { MyTextInput } from "../../components/MyTextInput";
 import { MyButton } from "../../components/MyButton";
 import { useNavigation } from '@react-navigation/native';
+import { Button } from '@rneui/base';
 // import SingInScreen from '../SingInScreen';
 
 function SingUp() {
@@ -13,6 +14,7 @@ function SingUp() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [password2, setPassword2] = useState<string>("");
+  const navigation = useNavigation();
 
   function handleSignUpClick() {
   if(password === password2){
@@ -79,12 +81,13 @@ function SingUp() {
         value={password2}
         onChangeText={setPassword2}
       />
-      <View style={{flexDirection: "row",justifyContent:'center'}}>
+      <Button type='clear' onPress={() => navigation.navigate("SingIn")}><Text>Já tem conta? É só logar!</Text></Button>
+      {/* <View style={{flexDirection: "row",justifyContent:'center'}}>
       <Text style={{fontSize: 14, fontWeight:'bold'}}>Já tem conta?</Text>
       <TouchableOpacity>
-        <Text style={{fontSize:14, color:'#F94E69', fontWeight:'bold'}}>  É só logar!</Text>
+        <Text style={{fontSize:14, color:'#F94E69', fontWeight:'bold'}}>É só logar!</Text>
       </TouchableOpacity>
-      </View>
+      </View> */}
       
 
       <MyButton onPress={() => handleSignUpClick()} title="Cadastrar-se" />
