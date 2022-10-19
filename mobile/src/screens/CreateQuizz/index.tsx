@@ -10,11 +10,22 @@ import user from '../../assets/user.png';
 
 function CreateQuizz() {
   const [questions, setquestions] = useState<string>("");
-  
+  const [questionDescription, setquestionDescription] = useState<string>("");
+  const [id, setid] = useState<string>("");
+  const [description, setdescription] = useState<string>("");
+  const [isRight, setisRight] = useState<boolean>(false);
+
+
+
   function handleCreateQuizz() {
       if(questions != '' ){
         api.post("quiz/createquizz", {
-          questions: questions,    
+          questions: questions,
+          questionDescription: questionDescription,
+          id: id,
+          description: description,
+          isRight: isRight,
+
       },
       ).then((response) =>{
         Alert.alert('Sucesso',(response.data.sucess))
@@ -44,10 +55,21 @@ function CreateQuizz() {
       />
 
       <MyTextInput
-        placeholder="Questão"
-        value={questions}
-        onChangeText={setquestions}
+        placeholder="Pergunta"
+        value={questionDescription}
+        onChangeText={setquestionDescription}
       />
+      <MyTextInput
+        placeholder="Alterantiva"
+        value={id}
+        onChangeText={setid}
+      />
+      <MyTextInput
+        placeholder="Texto da alternativa"
+        value={description}
+        onChangeText={setdescription}
+      />
+
       <MyButton onPress={() => CreateQuizz()} title="Criar Quizz" />
 
     </Container>
