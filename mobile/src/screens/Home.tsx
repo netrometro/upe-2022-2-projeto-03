@@ -13,6 +13,10 @@ export function HomeScreen() {
         Essa tela só pode ser vista por usuários autenticados
       </Text>
       <MyButton
+      title='Crie o seu Quiz'
+      onPress={() => navigation.navigate('Quiz')}
+      />
+      <MyButton
         title="Ir para Configurações"
         onPress={() => navigation.navigate('Settings')}
       />
