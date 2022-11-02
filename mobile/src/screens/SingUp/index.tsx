@@ -9,6 +9,8 @@ import { Button } from '@rneui/base';
 import api from '../../services/api';
 // import SingInScreen from '../SingInScreen';
 
+//commit
+
 function SingUp() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
